@@ -71,8 +71,7 @@ const Index = () => {
               <DashboardCard
                 key={index}
                 {...item}
-                className="fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className={`fade-in [animation-delay:${index * 100}ms]`}
               />
             ))}
           </div>
