@@ -1,10 +1,12 @@
 
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface DashboardCardProps {
   title: string;
   description: string;
   icon: React.ReactNode;
+  route?: string;
   onClick?: () => void;
   className?: string;
 }
@@ -13,13 +15,24 @@ export const DashboardCard = ({
   title,
   description,
   icon,
+  route,
   onClick,
   className = "",
 }: DashboardCardProps) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (route) {
+      navigate(route);
+    } else if (onClick) {
+      onClick();
+    }
+  };
+
   return (
     <Card
       className={`hover:shadow-lg transition-all duration-300 cursor-pointer ${className}`}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <CardHeader className="flex flex-row items-center gap-4 pb-2">
         <div className="p-2 bg-primary/10 rounded-full">{icon}</div>
