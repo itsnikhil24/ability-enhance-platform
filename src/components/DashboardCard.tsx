@@ -1,6 +1,7 @@
 
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 interface DashboardCardProps {
   title: string;
@@ -31,7 +32,10 @@ export const DashboardCard = ({
 
   return (
     <Card
-      className={`hover:shadow-lg transition-all duration-300 cursor-pointer ${className}`}
+      className={cn(
+        "hover:shadow-lg transition-all duration-300 cursor-pointer bg-white hover:scale-105",
+        className
+      )}
       onClick={handleClick}
     >
       <CardHeader className="flex flex-row items-center gap-4 pb-2">
