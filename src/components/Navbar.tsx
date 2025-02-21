@@ -15,7 +15,6 @@ export const Navbar = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would validate credentials
     setIsLoggedIn(true);
     setShowLoginModal(false);
     toast({

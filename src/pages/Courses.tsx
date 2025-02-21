@@ -1,9 +1,9 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { Book, Clock, Users } from "lucide-react";
+import { Book, Clock, Users, ChevronLeft, Home } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Course {
   id: number;
@@ -48,6 +48,7 @@ const courses: Course[] = [
 const Courses = () => {
   const [enrolledCourses, setEnrolledCourses] = useState<number[]>([]);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleEnroll = (courseId: number) => {
     if (enrolledCourses.includes(courseId)) {
@@ -69,6 +70,19 @@ const Courses = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="space-y-6">
+        <div className="flex justify-between items-center mb-6">
+          <Button variant="outline" onClick={() => navigate(-1)}>
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Back
+          </Button>
+          <Button variant="outline" asChild>
+            <Link to="/">
+              <Home className="mr-2 h-4 w-4" />
+              Home
+            </Link>
+          </Button>
+        </div>
+
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-bold tracking-tight">Recommended Courses</h1>
           <p className="text-xl text-muted-foreground">

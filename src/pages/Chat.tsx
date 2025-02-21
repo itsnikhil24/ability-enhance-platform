@@ -1,11 +1,11 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { SendHorizontal, Bot, User } from "lucide-react";
+import { SendHorizontal, Bot, User, ChevronLeft, Home } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Message {
   role: "user" | "assistant";
@@ -22,6 +22,7 @@ const Chat = () => {
   const [inputMessage, setInputMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,6 +59,19 @@ const Chat = () => {
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="space-y-6">
+        <div className="flex justify-between items-center mb-6">
+          <Button variant="outline" onClick={() => navigate(-1)}>
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Back
+          </Button>
+          <Button variant="outline" asChild>
+            <Link to="/">
+              <Home className="mr-2 h-4 w-4" />
+              Home
+            </Link>
+          </Button>
+        </div>
+
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-bold tracking-tight">AI Learning Assistant</h1>
           <p className="text-xl text-muted-foreground">

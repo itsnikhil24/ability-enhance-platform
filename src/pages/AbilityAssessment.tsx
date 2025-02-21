@@ -1,10 +1,11 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { ChevronLeft, Home } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const questions = [
   {
@@ -43,6 +44,7 @@ export const AbilityAssessment = () => {
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [showResults, setShowResults] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     if (Object.keys(answers).length !== questions.length) {
@@ -77,11 +79,17 @@ export const AbilityAssessment = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-3xl mx-auto space-y-8">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold mb-2">Dyslexia Assessment Test</h1>
-          <p className="text-muted-foreground">
-            This assessment will help us understand your reading challenges better.
-          </p>
+        <div className="flex justify-between items-center mb-6">
+          <Button variant="outline" onClick={() => navigate(-1)}>
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Back
+          </Button>
+          <Button variant="outline" asChild>
+            <Link to="/">
+              <Home className="mr-2 h-4 w-4" />
+              Home
+            </Link>
+          </Button>
         </div>
 
         {!showResults ? (
