@@ -1,9 +1,9 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
-import { Calendar, Mail, Star, Clock, BookOpen } from "lucide-react";
+import { Calendar, Mail, Star, Clock, BookOpen, ChevronLeft, Home } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 interface Mentor {
   id: number;
@@ -52,6 +52,7 @@ const mentors: Mentor[] = [
 const Mentorship = () => {
   const [requestedMentors, setRequestedMentors] = useState<number[]>([]);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleRequestMentor = (mentorId: number) => {
     if (requestedMentors.includes(mentorId)) {
@@ -73,6 +74,19 @@ const Mentorship = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="space-y-6">
+        <div className="flex justify-between items-center mb-6">
+          <Button variant="outline" onClick={() => navigate(-1)}>
+            <ChevronLeft className="mr-2 h-4 w-4" />
+            Back
+          </Button>
+          <Button variant="outline" asChild>
+            <Link to="/">
+              <Home className="mr-2 h-4 w-4" />
+              Home
+            </Link>
+          </Button>
+        </div>
+
         <div className="text-center space-y-2">
           <h1 className="text-4xl font-bold tracking-tight">Expert Mentors</h1>
           <p className="text-xl text-muted-foreground">
