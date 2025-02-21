@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { DisabilityAssessment } from "@/components/DisabilityAssessment";
 import { DashboardCard } from "@/components/DashboardCard";
-import { Brain, Book, MessageCircle, GraduationCap, ActivitySquare } from "lucide-react";
+import { Brain, Book, MessageCircle, GraduationCap, ActivitySquare, User } from "lucide-react";
 
 const Index = () => {
   const [showAssessment, setShowAssessment] = useState(true);
@@ -44,7 +44,7 @@ const Index = () => {
       title: "Mentorship",
       description: "Connect with experienced mentors for guidance",
       icon: <GraduationCap className="w-6 h-6 text-primary" />,
-      route: "/mentors"
+      route: "/mentorship"
     },
     {
       title: "Daily Exercises",
@@ -52,6 +52,12 @@ const Index = () => {
       icon: <ActivitySquare className="w-6 h-6 text-primary" />,
       route: "/exercises"
     },
+    {
+      title: "Profile",
+      description: "View your progress and learning journey",
+      icon: <User className="w-6 h-6 text-primary" />,
+      route: "/profile"
+    }
   ];
 
   return (
