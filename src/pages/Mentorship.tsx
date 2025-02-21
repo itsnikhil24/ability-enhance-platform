@@ -25,7 +25,7 @@ const mentors: Mentor[] = [
     experience: "15 years",
     sessions: 1240,
     availability: "Mon, Wed, Fri",
-    image: "/placeholder.svg"
+    image: "\christopher-campbell-rDEOVtE7vOs-unsplash.jpg"
   },
   {
     id: 2,
@@ -35,7 +35,7 @@ const mentors: Mentor[] = [
     experience: "12 years",
     sessions: 890,
     availability: "Tue, Thu, Sat",
-    image: "/placeholder.svg"
+    image: "stefan-stefancik-QXevDflbl8A-unsplash.jpg"
   },
   {
     id: 3,
@@ -45,7 +45,7 @@ const mentors: Mentor[] = [
     experience: "8 years",
     sessions: 650,
     availability: "Mon-Fri",
-    image: "/placeholder.svg"
+    image: "vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg"
   }
 ];
 

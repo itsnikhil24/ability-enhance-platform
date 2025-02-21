@@ -23,7 +23,7 @@ const courses: Course[] = [
     duration: "8 weeks",
     students: 1240,
     level: "Beginner",
-    image: "/placeholder.svg"
+    image: "DALL·E 2025-02-21 14.25.46 - a vibrant and engaging cover image for a course titled 'Reading Comprehension Mastery'. The design features an open book with pages turning, symbolizi.webp"
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ const courses: Course[] = [
     duration: "10 weeks",
     students: 890,
     level: "Intermediate",
-    image: "/placeholder.svg"
+    image: "DALL·E 2025-02-21 14.26.55 - a vibrant and educational cover image for a course titled 'Writing Skills Development'. The design features a pen writing on an open notebook with flo.webp"
   },
   {
     id: 3,
@@ -41,7 +41,7 @@ const courses: Course[] = [
     duration: "6 weeks",
     students: 1560,
     level: "All Levels",
-    image: "/placeholder.svg"
+    image: "DALL·E 2025-02-21 14.26.58 - a vibrant and captivating cover image for a course titled 'Memory Enhancement Techniques'. The design features a human brain illuminated with glowing .webp"
   }
 ];
 

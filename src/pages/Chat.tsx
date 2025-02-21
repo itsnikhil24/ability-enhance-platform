@@ -12,6 +12,27 @@ interface Message {
   content: string;
 }
 
+// Function to format message content by:
+// 1. Converting **text** to bold
+// 2. Converting single * to a bullet point (•)
+const formatMessageContent = (text: string) => {
+  const parts = text.split(/(\*\*[^*]+\*\*|\*)/g); // Split by **text** or single *
+  return parts.map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return (
+        <strong key={index}>
+          {part.slice(2, -2)}
+        </strong>
+      );
+    } else if (part === "*") {
+      return (
+        <span key={index} className="mr-1">•</span>
+      );
+    }
+    return part;
+  });
+};
+
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -26,7 +47,20 @@ const Chat = () => {
 
   const handleSendMessage = async (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('API Key:', import.meta.env.VITE_GOOGLE_API_KEY);
+
     if (!inputMessage.trim()) return;
+
+    const apiKey = import.meta.env.VITE_GOOGLE_API_KEY;
+    if (!apiKey) {
+      toast({
+        title: "Error",
+        description: "API key not found.",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+      return;
+    }
 
     const userMessage = inputMessage.trim();
     setInputMessage("");
@@ -34,24 +68,36 @@ const Chat = () => {
     setIsLoading(true);
 
     try {
-      // In a real implementation, this would make an API call to Gemini
-      // For now, we'll simulate a response
-      setTimeout(() => {
-        setMessages((prev) => [
-          ...prev,
-          {
-            role: "assistant",
-            content: "I understand you're asking about '" + userMessage + "'. As your AI learning assistant, I'm here to help you with your studies and provide guidance tailored to your needs.",
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        ]);
-        setIsLoading(false);
-      }, 1000);
-    } catch (error) {
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: userMessage }] }],
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(`Failed: ${errorData.error?.message || "Unknown error"}`);
+      }
+
+      const data = await response.json();
+      const aiMessage = data.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I didn't understand that.";
+
+      setMessages((prev) => [...prev, { role: "assistant", content: aiMessage }]);
+    } catch (error: any) {
+      console.error("Error:", error);
       toast({
         title: "Error",
-        description: "Failed to get response from AI assistant",
+        description: `Failed to get response: ${error.message}`,
         variant: "destructive",
       });
+    } finally {
       setIsLoading(false);
     }
   };
@@ -86,7 +132,9 @@ const Chat = () => {
                 <div
                   key={index}
                   className={`flex gap-3 ${
-                    message.role === "assistant" ? "items-start" : "items-start flex-row-reverse"
+                    message.role === "assistant"
+                      ? "items-start"
+                      : "items-start flex-row-reverse"
                   }`}
                 >
                   <div
@@ -101,13 +149,13 @@ const Chat = () => {
                     )}
                   </div>
                   <div
-                    className={`rounded-lg px-4 py-2 max-w-[80%] ${
+                    className={`rounded-lg px-4 py-2 max-w-[80%] whitespace-pre-line break-words ${
                       message.role === "assistant"
-                        ? "bg-muted"
-                        : "bg-primary text-primary-foreground"
+                        ? "bg-muted text-left"
+                        : "bg-primary text-primary-foreground text-right"
                     }`}
                   >
-                    {message.content}
+                    {formatMessageContent(message.content)}
                   </div>
                 </div>
               ))}
@@ -143,3 +191,6 @@ const Chat = () => {
 };
 
 export default Chat;
+
+
+// D:\Web Development\Project\Cognitive_lab\.env.local
